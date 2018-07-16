@@ -1,7 +1,23 @@
 ﻿<script type="text/html" id="survey-question-file">
     <div data-bind="css: question.cssClasses.root">
+
+
+
         <!-- ko ifnot: question.koIsReadOnly -->
+
+        <!-- ko if: question.isApp -->
+        <!-- ko ifnot: question.koHasValue -->
+        <button data-bind="css: question.cssClasses.removeButton, click: question.photoPopup, text: 'Add'"></button>
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko ifnot: question.isApp -->
         <input type="file" data-bind="attr: {id: question.inputId, 'aria-label': question.locTitle.renderedHtml, multiple: question.allowMultiple ? 'multiple' : undefined }, event: {change: question.dochange}">
+        <!-- /ko -->
+
+        <!-- ko if: question.koIsCounter -->
+        <input data-bind="attr: {type: 'text', 'aria-label': 'Counter'}, value:question.countValue"/>
+        <!-- /ko -->
+
         <!-- ko if: question.koHasValue -->
         <button data-bind="css: question.cssClasses.removeButton, click: question.doclean, text: question.cleanButtonCaption"></button>
         <!-- /ko -->

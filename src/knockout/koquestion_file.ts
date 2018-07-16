@@ -9,8 +9,11 @@ export class QuestionFileImplementor extends QuestionImplementor {
   koDataUpdater = ko.observable(0);
   koData: any;
   koHasValue = ko.observable(false);
+  koIsCounter = ko.observable(false);
+
   constructor(question: Question) {
     super(question);
+    console.log(this.question.value);
     var self = this;
     this.koData = ko.computed(() => {
       self.koDataUpdater();
@@ -18,6 +21,8 @@ export class QuestionFileImplementor extends QuestionImplementor {
     });
     this.question["koData"] = this.koData;
     this.question["koHasValue"] = this.koHasValue;
+    this.question["koIsCounter"] = this.koIsCounter;
+
     (<QuestionFileModel>this.question).previewValueLoadedCallback =
       self.onLoadPreview;
     this.question["dochange"] = (data, event) => {
@@ -29,6 +34,7 @@ export class QuestionFileImplementor extends QuestionImplementor {
       (<QuestionFileModel>this.question).clear();
       src.parentElement.querySelectorAll("input")[0].value = "";
       this.koHasValue(false);
+      this.koIsCounter(false);
     };
   }
   private onChange(src: any) {

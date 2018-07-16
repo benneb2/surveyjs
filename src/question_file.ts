@@ -10,7 +10,12 @@ import { surveyLocalization } from "./surveyStrings";
  */
 export class QuestionFileModel extends Question {
   private isUploading: boolean = false;
+  koData:any ;
+  countValue: any = "3";
+  counter:boolean = false;
   previewValueLoadedCallback: () => void;
+  koHasValue: (value) => void;
+  koIsCounter: (value) => void;
   public previewValue: any[] = [];
   constructor(public name: string) {
     super(name);
@@ -74,6 +79,35 @@ export class QuestionFileModel extends Question {
   public set maxSize(val: number) {
     this.setPropertyValue("maxSize", val);
   }
+
+  get isApp(): boolean {
+      return (<any>window).isApp();
+  }
+
+  public photoPopup():void{
+      (<any>window).photoPopup(this).then((data)=>{
+
+        this.errors = [];
+        this.previewValue = [];
+
+        if(data.counter == true)
+        {
+          this.koIsCounter(true);
+          this.countValue = data.countValue;
+          this.value = data.countValue;
+        }else if(data.camera == false)
+        {
+          this.setFileValue(data.blob)
+        }else
+        {
+          this.value = [data.url];
+          this.previewValue = this.previewValue.concat([data.url]);
+          this.fireCallback(this.previewValueLoadedCallback);
+        }
+        this.koHasValue(true);
+
+    });
+  }
   /**
    * The clean files value button caption.
    */
@@ -85,6 +119,7 @@ export class QuestionFileModel extends Question {
    */
   public clear() {
     this.value = undefined;
+    this.koIsCounter(false);
     this.previewValue = [];
     this.fireCallback(this.previewValueLoadedCallback);
   }
@@ -118,6 +153,26 @@ export class QuestionFileModel extends Question {
   protected setFileValue(file: File) {
     this.setFilesValue([file]);
   }
+  onSurveyValueChanged(newValue: any) {
+    super.onSurveyValueChanged(newValue);
+    if(typeof newValue != 'undefined' && newValue != null)
+    {
+      debugger;
+      if(!isNaN(newValue))
+      {
+        this.koIsCounter(true);
+        this.countValue = newValue;
+        this.value = newValue[0];
+      }else
+      {
+        this.previewValue = [];
+        this.previewValue = this.previewValue.concat(newValue);
+        this.fireCallback(this.previewValueLoadedCallback);    
+      }
+      this.koHasValue(true);
+    }
+  }
+
   protected setFilesValue(files: File[]) {
     if (!FileReader) {
       return;
