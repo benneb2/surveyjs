@@ -32,7 +32,8 @@ export class QuestionFileImplementor extends QuestionImplementor {
     this.question["doclean"] = (data, event) => {
       var src = event.target || event.srcElement;
       (<QuestionFileModel>this.question).clear();
-      src.parentElement.querySelectorAll("input")[0].value = "";
+      if(typeof src.parentElement.querySelectorAll("input")[0] != 'undefined')
+        src.parentElement.querySelectorAll("input")[0].value = "";
       this.koHasValue(false);
       this.koIsCounter(false);
     };

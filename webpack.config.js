@@ -138,14 +138,13 @@ module.exports = function(options) {
   };
 
   var packagePlatformJson = {
-    name: "survey-" + options.platform,
+    name: "survey-" + options.platform + "-impi",
     version: packageJson.version,
     description:
-      "survey.js is a JavaScript Survey Library. It is a modern way to add a survey to your website. It uses JSON for survey metadata and results.",
+      "Impi tech's fork of survey.js is a JavaScript Survey Library. It is a modern way to add a survey to your website. It uses JSON for survey metadata and results.",
     keywords: ["Survey", "JavaScript", "Bootstrap", "Library"].concat(
       platformOptions[options.platform].keywords
     ),
-    homepage: "https://surveyjs.io/",
     license: "MIT",
     files: [
       "survey.css",
@@ -154,10 +153,6 @@ module.exports = function(options) {
       "survey." + options.platformPrefix + ".min.js"
     ],
     main: "survey." + options.platformPrefix + ".js",
-    repository: {
-      type: "git",
-      url: "https://github.com/surveyjs/surveyjs.git"
-    },
     typings: "survey." + options.platformPrefix + ".d.ts"
   };
 

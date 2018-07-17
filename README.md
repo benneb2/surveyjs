@@ -1,3 +1,25 @@
+Impitech version
+1.Build:
+    PRD:
+        npm run build_angular_prod
+    DEV:
+        npm run build_angular_dev
+
+2.Link -- dev
+    cd packages/survey-angular/
+        npm link
+    in ionic dir.
+        npm link survey-angular-impi
+
+3.Deploy
+    bump version in package.json
+    build prd :: npm run build_angular_prod
+    cd packages/survey-angular/
+    npm publish
+
+
+
+
 **survey.js** is a JavaScript Survey Library. It is a modern way to add a survey to your website. It uses JSON for survey metadata and results.
 [![Build Status](https://travis-ci.org/surveyjs/surveyjs.svg?branch=master)](https://travis-ci.org/surveyjs/surveyjs) [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE)
 <a href="https://github.com/DevExpress/testcafe">

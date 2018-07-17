@@ -101,7 +101,7 @@ export class QuestionFileModel extends Question {
         }else
         {
           this.value = [data.url];
-          this.previewValue = this.previewValue.concat([data.url]);
+          this.previewValue = [data.url];
           this.fireCallback(this.previewValueLoadedCallback);
         }
         this.koHasValue(true);
@@ -157,7 +157,6 @@ export class QuestionFileModel extends Question {
     super.onSurveyValueChanged(newValue);
     if(typeof newValue != 'undefined' && newValue != null)
     {
-      debugger;
       if(!isNaN(newValue))
       {
         this.koIsCounter(true);
@@ -165,8 +164,7 @@ export class QuestionFileModel extends Question {
         this.value = newValue[0];
       }else
       {
-        this.previewValue = [];
-        this.previewValue = this.previewValue.concat(newValue);
+        this.previewValue = [newValue];
         this.fireCallback(this.previewValueLoadedCallback);    
       }
       this.koHasValue(true);
@@ -188,10 +186,10 @@ export class QuestionFileModel extends Question {
       let fileReader = new FileReader();
       fileReader.onload = e => {
         if (this.storeDataAsText) {
-          this.value = (this.value || []).concat([fileReader.result]);
+          this.value = (this.value || [fileReader.result]);
         }
         if (this.showPreview && this.isFileImage(file)) {
-          this.previewValue = this.previewValue.concat([fileReader.result]);
+          this.previewValue = [fileReader.result];
           this.fireCallback(this.previewValueLoadedCallback);
         }
       };

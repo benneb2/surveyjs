@@ -2,7 +2,7 @@
     <div data-bind="css: question.cssClasses.root">
 
 
-
+        <input type="file" data-bind="attr:{id:question.inputId},event: {change: question.dochange}" style="display: none" />
         <!-- ko ifnot: question.koIsReadOnly -->
 
         <!-- ko if: question.isApp -->
@@ -11,11 +11,11 @@
         <!-- /ko -->
         <!-- /ko -->
         <!-- ko ifnot: question.isApp -->
-        <input type="file" data-bind="attr: {id: question.inputId, 'aria-label': question.locTitle.renderedHtml, multiple: question.allowMultiple ? 'multiple' : undefined }, event: {change: question.dochange}">
+        <input type="file"  data-bind="attr: {id: question.inputId, 'aria-label': question.locTitle.renderedHtml, multiple: question.allowMultiple ? 'multiple' : undefined }, event: {change: question.dochange}">
         <!-- /ko -->
 
         <!-- ko if: question.koIsCounter -->
-        <input data-bind="attr: {type: 'text', 'aria-label': 'Counter'}, value:question.countValue"/>
+        Counter:<input data-bind="attr: {type: 'text', 'aria-label': 'Counter'}, value:question.countValue"/><br>
         <!-- /ko -->
 
         <!-- ko if: question.koHasValue -->
